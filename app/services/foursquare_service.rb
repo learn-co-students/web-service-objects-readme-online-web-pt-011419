@@ -29,4 +29,6 @@ def tips(token)
   JSON.parse(resp.body)["response"]["list"]["listItems"]["items"]
 end
 
+#could probably add more to this file
+
 end
