@@ -1,20 +1,17 @@
+
 class SearchesController < ApplicationController
 
   def search
   end
 
   def friends
-    resp = Faraday.get("https://api.foursquare.com/v2/users/self/friends") do |req|
-      req.params['oauth_token'] = session[:token]
-      # don't forget that pesky v param for versioning
-      req.params['v'] = '20160201'
-    end
-    @friends = JSON.parse(resp.body)["response"]["friends"]["items"]
+    foursquare = FoursquareService.new
+    @friends = foursquare.friends(session[:token])
   end
 
   def foursquare
-    client_id = "CO3LIXJPH1LYAC5OOTLKLJE334NVDIYG24KUFOVEQ22WVYDP"
-    client_secret = "0NNKMRWRYLCKLPSEE3G10I33WV0BTYXEN2JCJ41TVKKWB52Y"
+    client_id = "0BJRMTGIRSWZ0YSIGH0DVXK4GLFZDFBFUAYOLT2HURC3L1IC"
+    client_secret = "BR4PDT2MAMLMRBL5XEHT33RXGEVZVOS5PA1ACDO324ZP0KAT"
 
     @resp = Faraday.get 'https://api.foursquare.com/v2/venues/search' do |req|
       req.params['client_id'] = client_id
@@ -23,7 +20,6 @@ class SearchesController < ApplicationController
       req.params['near'] = params[:zipcode]
       req.params['query'] = 'coffee shop'
     end
-
     body = JSON.parse(@resp.body)
 
     if @resp.success?
