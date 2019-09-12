@@ -6,7 +6,7 @@ class FoursquareService
         req.params['client_secret'] = ENV['FOURSQUARE_SECRET']
         req.params['grant_type'] = 'authorization_code'
         req.params['redirect_uri'] = "http://localhost:3000/auth"
-        req.params['code'] = params[:code]
+        req.params['code'] = code
       end
       body = JSON.parse(resp.body)
       body["access_token"]
