@@ -1,16 +1,17 @@
+
 class SearchesController < ApplicationController
 
   def search
   end
 
   def friends
-    foursquare = FoursquareService.new 
+    foursquare = FoursquareService.new
     @friends = foursquare.friends(session[:token])
   end
 
   def foursquare
-    client_id = "CO3LIXJPH1LYAC5OOTLKLJE334NVDIYG24KUFOVEQ22WVYDP"
-    client_secret = "0NNKMRWRYLCKLPSEE3G10I33WV0BTYXEN2JCJ41TVKKWB52Y"
+    client_id = "0BJRMTGIRSWZ0YSIGH0DVXK4GLFZDFBFUAYOLT2HURC3L1IC"
+    client_secret = "BR4PDT2MAMLMRBL5XEHT33RXGEVZVOS5PA1ACDO324ZP0KAT"
 
     @resp = Faraday.get 'https://api.foursquare.com/v2/venues/search' do |req|
       req.params['client_id'] = client_id
